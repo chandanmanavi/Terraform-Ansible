@@ -1,6 +1,6 @@
 resource "aws_key_pair" "demo_key" {
   key_name   = "MyKeyPair"
-  public_key = "${file(var.public_key)}"
+  public_key = "file(var.public_key)"
 }
 
 /*
@@ -18,19 +18,19 @@ resource "aws_vpc" "my-vpc" {
 */
 
 resource "aws_instance" "jenkins-ci" {
-  count = "${var.instance_count}"
+  count = "var.instance_count"
 
   #ami = "${lookup(var.amis,var.region)}"
-  ami           = "${var.ami}"
-  instance_type = "${var.instance}"
-  key_name      = "${aws_key_pair.demo_key.key_name}"
+  ami           = "var.ami"
+  instance_type = "var.instance"
+  key_name      = "aws_key_pair.demo_key.key_name"
 
   vpc_security_group_ids = [
-    "${aws_security_group.web.id}",
-    "${aws_security_group.ssh.id}",
-    "${aws_security_group.egress-tls.id}",
-    "${aws_security_group.ping-ICMP.id}",
-	"${aws_security_group.web_server.id}"
+    "aws_security_group.web.id",
+    "aws_security_group.ssh.id",
+    "aws_security_group.egress-tls.id",
+    "aws_security_group.ping-ICMP.id",
+	"aws_security_group.web_server.id"
   ]
 
 
@@ -44,8 +44,8 @@ resource "aws_instance" "jenkins-ci" {
   }
 
   connection {
-    private_key = "${file(var.private_key)}"
-    user        = "${var.ansible_user}"
+    private_key = "file(var.private_key)"
+    user        = "var.ansible_user"
   }
 
   #user_data = "${file("../templates/install_jenkins.sh")}"
@@ -90,16 +90,16 @@ resource "aws_instance" "gitLab" {
   count = "${var.instance_count}"
 
   #ami = "${lookup(var.amis,var.region)}"
-  ami           = "${var.ami}"
-  instance_type = "${var.instance}"
-  key_name      = "${aws_key_pair.demo_key.key_name}"
+  ami           = "var.ami"
+  instance_type = "var.instance"
+  key_name      = "aws_key_pair.demo_key.key_name"
 
   vpc_security_group_ids = [
-    "${aws_security_group.web.id}",
-    "${aws_security_group.ssh.id}",
-    "${aws_security_group.egress-tls.id}",
-    "${aws_security_group.ping-ICMP.id}",
-	"${aws_security_group.web_server.id}"
+    "aws_security_group.web.id",
+    "aws_security_group.ssh.id",
+    "aws_security_group.egress-tls.id",
+    "aws_security_group.ping-ICMP.id",
+	"aws_security_group.web_server.id"
   ]
 
 
@@ -113,8 +113,8 @@ resource "aws_instance" "gitLab" {
   }
 
   connection {
-    private_key = "${file(var.private_key)}"
-    user        = "${var.ansible_user}"
+    private_key = "file(var.private_key)"
+    user        = "var.ansible_user"
   }
 
   #user_data = "${file("../templates/install_gitLab.sh")}"
