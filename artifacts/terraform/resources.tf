@@ -18,7 +18,7 @@ resource "aws_vpc" "my-vpc" {
 */
 
 resource "aws_instance" "jenkins-ci" {
-  count = "var.instance_count"
+  count = "${var.instance_count}"
 
   #ami = "${lookup(var.amis,var.region)}"
   ami           = "var.ami"
@@ -87,7 +87,7 @@ resource "aws_instance" "jenkins-ci" {
 }
 
 resource "aws_instance" "gitLab" {
-  count = "var.instance_count"
+  count = "${var.instance_count}"
 
   #ami = "${lookup(var.amis,var.region)}"
   ami           = "var.ami"
